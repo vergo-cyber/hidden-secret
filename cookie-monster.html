@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Monster</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #111827;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            width: 500px;
+            background: #1f2937;
+            padding: 35px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        h1 {
+            color: #60a5fa;
+        }
+
+        .status {
+            background: #111827;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .flag {
+            display: none;
+            background: #064e3b;
+            border: 1px solid #10b981;
+            padding: 20px;
+            border-radius: 8px;
+            color: #6ee7b7;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .denied {
+            color: #f87171;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🍪 Cookie Monster</h1>
+
+    <p>
+        Welcome to the administrator portal.
+    </p>
+
+    <div class="status">
+        <p id="status">Checking your access...</p>
+    </div>
+
+    <div id="flag" class="flag">
+        🎉 Administrator access granted!<br><br>
+        flag{cookies_can_lie}
+    </div>
+
+</div>
+
+<script>
+
+    // Create the user's cookie if it does not already exist.
+    if (!document.cookie.includes("role=")) {
+        document.cookie = "role=user; path=/";
+    }
+
+    // Read a cookie by name.
+    function getCookie(name) {
+        const cookies = document.cookie.split(";");
+
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+
+            if (cookie.startsWith(name + "=")) {
+                return cookie.substring(name.length + 1);
+            }
+        }
+
+        return null;
+    }
+
+    const role = getCookie("role");
+
+    if (role === "admin") {
+
+        document.getElementById("status").innerHTML =
+            "Administrator access detected.";
+
+        document.getElementById("flag").style.display = "block";
+
+    } else {
+
+        document.getElementById("status").innerHTML =
+            "Access denied. Current role: <strong>" +
+            role +
+            "</strong>";
+
+        document.getElementById("status").classList.add("denied");
+    }
+
+</script>
+
+</body>
+</html>
